@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Promocoes {
+  id                  Int @default(autoincrement()) @id
+  nome                String
+}
+
+model Banner {
+  id                  Int @default(autoincrement()) @id
+  image               String @db.Text
+}
+
+model Catalogo {
+  id                 Int @default(autoincrement()) @id
+  imagem             String @db.Text
+  nome               String
+}
+
+model Produto {
+  id                  Int @default(autoincrement()) @id
+  url                 String @db.Text
+  desconto            String
+  nome                String
+  avaliacoes          String
+  estrelasQuantidade  Int
+  preco               Int
+  formaDePagamento    String
+  tipo                String
+  sobre               String @db.Text
+  imagens             Imagens[]
+  comentaros          Comentarios[]
+}
+
+model Comentarios {
+  idComentario        Int @default(autoincrement()) @id
+  idProduto           Int
+  nome                String
+  comentario          String @db.Text
+  data                DateTime
+  estrelas            Int
+  produto             Produto @relation(fields: [idProduto], references: [id])
+}
+
+model Imagens {
+  idImagem            Int @default(autoincrement()) @id
+  idProduto           Int
+  imagem1             String @db.Text
+  imagem2             String? @db.Text
+  imagem3             String? @db.Text
+  imagem4             String? @db.Text
+  produto             Produto @relation(fields: [idProduto], references: [id])
+}
+
+model catalogo2 {
+  id                  Int @default(autoincrement()) @id
+  imagem String @db.Text
+  nome String
+}
+
+model banner2 {
+  id                  Int @default(autoincrement()) @id
+  imagem              String @db.Text
+}
+
+model bannerDuplo {
+  id                  Int @default(autoincrement()) @id
+  imagem1             String @db.Text 
+  imagem2             String @db.Text 
+}
+
+model Produto2 {
+  id                  Int @default(autoincrement()) @id
+  url                 String @db.Text
+  desconto            String
+  nome                String
+  avaliacoes          String
+  estrelasQuantidade  Int
+  preco               Int
+  formaDePagamento    String
+  tipo                String
+}
+
+model DadosCampoPesquisa {
+  id                  Int @default(autoincrement()) @id
+  produto             String
+  quantidade          Int
+  tempo               Int
+}
